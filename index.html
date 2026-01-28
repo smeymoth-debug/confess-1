@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Have Something to Tell You roth 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating hearts background */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 15s infinite ease-in-out;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            background: white;
+            border-radius: 30px;
+            padding: 60px 40px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .confession-box {
+            position: relative;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #555;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .big-emoji {
+            font-size: 5em;
+            margin: 20px 0;
+            display: inline-block;
+            animation: spin 3s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                transform: rotate(-10deg) scale(1.1);
+            }
+            75% {
+                transform: rotate(10deg) scale(1.1);
+            }
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .no-button {
+            background: #e0e0e0;
+            color: #666;
+            position: relative;
+        }
+
+        .no-button:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .confession-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8em;
+            color: #764ba2;
+            margin: 30px 0;
+            line-height: 1.5;
+        }
+
+        .celebration {
+            font-size: 3em;
+            margin: 20px 0;
+        }
+
+        .sad-face {
+            font-size: 4em;
+            margin: 20px 0;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .final-message {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        .counter {
+            font-size: 0.9em;
+            color: #999;
+            margin-top: 10px;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: absolute;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-bg" id="heartBg"></div>
+
+    <div class="container">
+        <div class="confession-box">
+            <!-- Step 1: Initial -->
+            <div class="step active" id="step1">
+                <h1>Hey You! 👋</h1>
+                <div class="big-emoji">💌</div>
+                <p>I've been wanting to tell you something...</p>
+                <p>Are you ready to hear it?</p>
+                <button onclick="nextStep(2)">I'm Ready! 😊</button>
+            </div>
+
+            <!-- Step 2: Build up -->
+            <div class="step" id="step2">
+                <h1>Okay, here goes...</h1>
+                <div class="big-emoji">😅</div>
+                <p>You know how sometimes you meet someone and they just make everything better?</p>
+                <p>Like, even a regular Tuesday feels special when they're around?</p>
+                <button onclick="nextStep(3)">Yes, go on... 🤔</button>
+            </div>
+
+            <!-- Step 3: More build up -->
+            <div class="step" id="step3">
+                <h1>Well...</h1>
+                <div class="big-emoji">💭</div>
+                <p>You're that person for me.</p>
+                <p>And I've been thinking about this for a while now...</p>
+                <button onclick="nextStep(4)">What are you trying to say? 😳</button>
+            </div>
+
+            <!-- Step 4: The confession -->
+            <div class="step" id="step4">
+                <h1>I Like You! 💕</h1>
+                <div class="big-emoji">😍</div>
+                <div class="confession-text">
+                    Like... really like you.<br>
+                    More than just a friend kind of like.<br>
+                    The "I think about you way too much" kind of like.
+                </div>
+                <p>So... what do you say?</p>
+                <div class="button-group">
+                    <button onclick="sayYes()">I like you too! 💖</button>
+                    <button class="no-button" onclick="sayNo()" id="noButton">Not really... 😬</button>
+                </div>
+                <div class="counter" id="noCounter"></div>
+            </div>
+
+            <!-- Step 5: Yes response -->
+            <div class="step" id="step5">
+                <h1>REALLY?! 🎉</h1>
+                <div class="celebration">🎊🎉💖🎊🎉</div>
+                <div class="confession-text">
+                    This is amazing!<br>
+                    You just made me the happiest person ever!
+                </div>
+                <div class="final-message">
+                    <p style="color: #d84315; font-weight: 600;">I promise to always make you smile, laugh at your jokes (even the bad ones), and be there for you. ❤️</p>
+                </div>
+                <p style="margin-top: 20px;">Can't wait to see where this goes! 🌟</p>
+            </div>
+
+            <!-- Step 6: No response -->
+            <div class="step" id="step6">
+                <div class="sad-face">😢</div>
+                <h1>Oh...</h1>
+                <p>That's okay! I totally understand.</p>
+                <p>I really appreciate you being honest with me.</p>
+                <div class="final-message">
+                    <p style="color: #d84315; font-weight: 600;">I hope we can still be friends? You're still awesome! 🌟</p>
+                </div>
+                <button onclick="reset()">Start Over?</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+
+        // Create floating hearts
+        function createHearts() {
+            const heartBg = document.getElementById('heartBg');
+            const hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '🩷'];
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heartBg.appendChild(heart);
+            }
+        }
+
+        function nextStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById('step' + stepNumber).classList.add('active');
+        }
+
+        function sayYes() {
+            nextStep(5);
+            createConfetti();
+        }
+
+        function sayNo() {
+            noClickCount++;
+            const noButton = document.getElementById('noButton');
+            const counter = document.getElementById('noCounter');
+            
+            const funnyMessages = [
+                "Are you sure? 🥺",
+                "Maybe you misclicked? 😅",
+                "Give it another thought? 💭",
+                "Pretty please? 🙏",
+                "Come on, I don't bite! 😊",
+                "Third time's the charm? ✨",
+                "You're breaking my heart here! 💔",
+                "Is that your final answer? 🤔",
+                "Okay fine, I'll accept your answer... 😢"
+            ];
+
+            if (noClickCount < funnyMessages.length) {
+                noButton.textContent = funnyMessages[noClickCount - 1];
+                counter.textContent = `"No" clicks: ${noClickCount} (Are you testing my persistence? 😄)`;
+                
+                // Make button slightly smaller each time
+                const scale = 1 - (noClickCount * 0.05);
+                noButton.style.transform = `scale(${scale})`;
+            } else {
+                nextStep(6);
+            }
+        }
+
+        function reset() {
+            noClickCount = 0;
+            document.getElementById('noButton').textContent = 'Not really... 😬';
+            document.getElementById('noButton').style.transform = 'scale(1)';
+            document.getElementById('noCounter').textContent = '';
+            nextStep(1);
+        }
+
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500'];
+            const container = document.querySelector('.container');
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        // Initialize
+        createHearts();
+    </script>
+</body>
+</html>
